@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-01-23T14:38:36.956Z</updated>
+  <updated>2024-01-23T14:56:37.460Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,152 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>7.AWS权限控制-SQS用户操作指定资源</title>
+    <link href="http://example.com/2024/01/23/7-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-SQS%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C%E6%8C%87%E5%AE%9A%E8%B5%84%E6%BA%90/"/>
+    <id>http://example.com/2024/01/23/7-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-SQS%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C%E6%8C%87%E5%AE%9A%E8%B5%84%E6%BA%90/</id>
+    <published>2024-01-23T14:56:04.000Z</published>
+    <updated>2024-01-23T14:56:37.460Z</updated>
+    
+    <content type="html"><![CDATA[<p>下述权限为测试用户对测试资源的完全控制使用。</p><p>{Region}:{Account} 替换成区域名称和账号id，建议队列命名时以prod或test开头，这样使用通配符方便过滤。如arn:aws-cn:sqs:{Region}:{Account}:test*</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;Version&quot;: &quot;2012-10-17&quot;,</span><br><span class="line">&quot;Statement&quot;: [</span><br><span class="line">&#123;</span><br><span class="line">&quot;Sid&quot;: &quot;Statement1&quot;,</span><br><span class="line">&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">&quot;Action&quot;: [</span><br><span class="line">&quot;sqs:ListQueues&quot;</span><br><span class="line">],</span><br><span class="line">&quot;Resource&quot;: [</span><br><span class="line">&quot;*&quot;</span><br><span class="line">]</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">&quot;Sid&quot;: &quot;Statement2&quot;,</span><br><span class="line">&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">&quot;Action&quot;: [</span><br><span class="line">&quot;sqs:*&quot;</span><br><span class="line">],</span><br><span class="line">&quot;Resource&quot;: [</span><br><span class="line">&quot;arn:aws-cn:sqs:&#123;Region&#125;:&#123;Account&#125;:&#123;QueueName&#125;&quot;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;下述权限为测试用户对测试资源的完全控制使用。&lt;/p&gt;
+&lt;p&gt;{Region}:{Account} 替换成区域名称和账号id，建议队列命名时以prod或test开头，这样使用通配符方便过滤。如arn:aws-cn:sqs:{Region}:{Account}:test*&lt;/p</summary>
+      
+    
+    
+    
+    <category term="云计算" scheme="http://example.com/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+    <category term="AWS" scheme="http://example.com/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/AWS/"/>
+    
+    
+    <category term="AWS" scheme="http://example.com/tags/AWS/"/>
+    
+    <category term="权限策略" scheme="http://example.com/tags/%E6%9D%83%E9%99%90%E7%AD%96%E7%95%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>6.AWS权限控制-Lambda用户访问指定函数</title>
+    <link href="http://example.com/2024/01/23/6-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-Lambda%E7%94%A8%E6%88%B7%E8%AE%BF%E9%97%AE%E6%8C%87%E5%AE%9A%E5%87%BD%E6%95%B0/"/>
+    <id>http://example.com/2024/01/23/6-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-Lambda%E7%94%A8%E6%88%B7%E8%AE%BF%E9%97%AE%E6%8C%87%E5%AE%9A%E5%87%BD%E6%95%B0/</id>
+    <published>2024-01-23T14:55:43.000Z</published>
+    <updated>2024-01-23T14:56:58.646Z</updated>
+    
+    <content type="html"><![CDATA[<p>下述权限主要是为测试用户给出测试的函数全部控制权，Statement1权限的缺点是测试账号可以看到包括生产所有的函数，因为Statement2的限定仅能查看无法修改。</p><p>如果不想要查看到所有信息，可以删除Statement1的权限，给出具体链接访问函数如(<a href="https://cn-north-1.console.amazonaws.cn/lambda/home?region=cn-north-1#/functions/XXXX%EF%BC%89%E3%80%82">https://cn-north-1.console.amazonaws.cn/lambda/home?region=cn-north-1#/functions/XXXX）。</a></p><p>Statement2中{Region}:{Account} 替换成区域名称和账号id，建议函数命名时以prod或test开头，这样使用通配符方便过滤。</p><p>建议权限和资源指定尽量使用通配符，AWS对json大小有限制，否则会报错Maximum policy size of 5120 bytes exceeded for group。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;Version&quot;: &quot;2012-10-17&quot;,</span><br><span class="line">&quot;Statement&quot;: [</span><br><span class="line">&#123;</span><br><span class="line">&quot;Sid&quot;: &quot;Statement1&quot;,</span><br><span class="line">&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">&quot;Action&quot;: [</span><br><span class="line">&quot;lambda:GetAccountSettings&quot;,</span><br><span class="line">&quot;lambda:ListFunctions&quot;,</span><br><span class="line">&quot;lambda:ListLayers&quot;,</span><br><span class="line">&quot;lambda:ListEventSourceMappings&quot;</span><br><span class="line">],</span><br><span class="line">&quot;Resource&quot;: [</span><br><span class="line">&quot;*&quot;</span><br><span class="line">]</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">&quot;Sid&quot;: &quot;Statement2&quot;,</span><br><span class="line">&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">&quot;Action&quot;: [</span><br><span class="line">&quot;lambda:*&quot;</span><br><span class="line">],</span><br><span class="line">&quot;Resource&quot;: [</span><br><span class="line">&quot;arn:aws-cn:lambda:&#123;Region&#125;:&#123;Account&#125;:function:test*&quot;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;下述权限主要是为测试用户给出测试的函数全部控制权，Statement1权限的缺点是测试账号可以看到包括生产所有的函数，因为Statement2的限定仅能查看无法修改。&lt;/p&gt;
+&lt;p&gt;如果不想要查看到所有信息，可以删除Statement1的权限，给出具体链接访问函数如(&lt;a </summary>
+      
+    
+    
+    
+    <category term="云计算" scheme="http://example.com/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+    <category term="AWS" scheme="http://example.com/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/AWS/"/>
+    
+    
+    <category term="AWS" scheme="http://example.com/tags/AWS/"/>
+    
+    <category term="权限策略" scheme="http://example.com/tags/%E6%9D%83%E9%99%90%E7%AD%96%E7%95%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>5.AWS权限控制-S3用户最小化操作权限</title>
+    <link href="http://example.com/2024/01/23/5-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-S3%E7%94%A8%E6%88%B7%E6%9C%80%E5%B0%8F%E5%8C%96%E6%93%8D%E4%BD%9C%E6%9D%83%E9%99%90/"/>
+    <id>http://example.com/2024/01/23/5-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-S3%E7%94%A8%E6%88%B7%E6%9C%80%E5%B0%8F%E5%8C%96%E6%93%8D%E4%BD%9C%E6%9D%83%E9%99%90/</id>
+    <published>2024-01-23T14:54:33.000Z</published>
+    <updated>2024-01-23T14:55:24.221Z</updated>
+    
+    <content type="html"><![CDATA[<p>下述权限为某个其他项目交互获取某些桶资源的最小化操作权限</p><p>“arn:aws-cn:s3:::{BucketName}”和”arn:aws-cn:s3:::{BucketName}&#x2F;{ObjectName}”,需替换相应资源信息。 {ObjectName}可以指定多层目录或通配符。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;Version&quot;: &quot;2012-10-17&quot;,</span><br><span class="line">    &quot;Statement&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;Sid&quot;: &quot;Statement1&quot;,</span><br><span class="line">            &quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">            &quot;Action&quot;: [</span><br><span class="line">                &quot;s3:ListBucket&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;Resource&quot;: [</span><br><span class="line">                &quot;arn:aws-cn:s3:::&#123;BucketName&#125;&quot;,</span><br><span class="line">                &quot;arn:aws-cn:s3:::&#123;BucketName&#125;&quot;,</span><br><span class="line">                &quot;arn:aws-cn:s3:::&#123;BucketName&#125;&quot;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;Sid&quot;: &quot;Statement2&quot;,</span><br><span class="line">            &quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">            &quot;Action&quot;: [</span><br><span class="line">                &quot;s3:GetObject&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;Resource&quot;: [</span><br><span class="line">                &quot;arn:aws-cn:s3:::&#123;BucketName&#125;/&#123;ObjectName&#125;/*&quot;,</span><br><span class="line">                &quot;arn:aws-cn:s3:::&#123;BucketName&#125;/&#123;ObjectName&#125;/*&quot;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;Sid&quot;: &quot;Statement3&quot;,</span><br><span class="line">            &quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">            &quot;Action&quot;: [</span><br><span class="line">                &quot;s3:GetObject&quot;,</span><br><span class="line">                &quot;s3:PutObject&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;Resource&quot;: [</span><br><span class="line">                &quot;arn:aws-cn:s3:::&#123;BucketName&#125;/&#123;ObjectName&#125;/*&quot;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;下述权限为某个其他项目交互获取某些桶资源的最小化操作权限&lt;/p&gt;
+&lt;p&gt;“arn:aws-cn:s3:::{BucketName}”和”arn:aws-cn:s3:::{BucketName}&amp;#x2F;{ObjectName}”,需替换相应资源信息。 {ObjectNam</summary>
+      
+    
+    
+    
+    <category term="云计算" scheme="http://example.com/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+    <category term="AWS" scheme="http://example.com/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/AWS/"/>
+    
+    
+    <category term="AWS" scheme="http://example.com/tags/AWS/"/>
+    
+    <category term="权限策略" scheme="http://example.com/tags/%E6%9D%83%E9%99%90%E7%AD%96%E7%95%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>4.AWS权限控制-S3用户操作特定S3存储桶</title>
+    <link href="http://example.com/2024/01/23/4-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-S3%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C%E7%89%B9%E5%AE%9AS3%E5%AD%98%E5%82%A8%E6%A1%B6/"/>
+    <id>http://example.com/2024/01/23/4-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-S3%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C%E7%89%B9%E5%AE%9AS3%E5%AD%98%E5%82%A8%E6%A1%B6/</id>
+    <published>2024-01-23T14:54:12.000Z</published>
+    <updated>2024-01-23T14:55:15.067Z</updated>
+    
+    <content type="html"><![CDATA[<p>下述权限为测试用户对测试资源的完全控制使用。</p><p>“arn:aws-cn:s3:::{BucketName}”和”arn:aws-cn:s3:::{BucketName}&#x2F;{ObjectName}”,需替换相应资源信息。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;Version&quot;: &quot;2012-10-17&quot;,</span><br><span class="line">&quot;Statement&quot;: [</span><br><span class="line">&#123;</span><br><span class="line">&quot;Sid&quot;: &quot;Statement1&quot;,</span><br><span class="line">&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">&quot;Action&quot;: [</span><br><span class="line">&quot;s3:ListBucket&quot;,</span><br><span class="line">&quot;s3:GetBucketPublicAccessBlock&quot;,</span><br><span class="line">&quot;s3:GetBucketPolicyStatus&quot;,</span><br><span class="line">&quot;s3:GetBucketAcl&quot;,</span><br><span class="line">&quot;s3:GetBucketVersioning&quot;,</span><br><span class="line">&quot;s3:GetBucketTagging&quot;,</span><br><span class="line">&quot;s3:GetEncryptionConfiguration&quot;,</span><br><span class="line">&quot;s3:GetBucketLogging&quot;,</span><br><span class="line">&quot;s3:GetBucketNotification&quot;,</span><br><span class="line">&quot;s3:GetBucketObjectLockConfiguration&quot;,</span><br><span class="line">&quot;s3:GetBucketRequestPayment&quot;,</span><br><span class="line">&quot;s3:GetBucketWebsite&quot;,</span><br><span class="line">&quot;s3:GetBucketPolicy&quot;,</span><br><span class="line">&quot;s3:GetBucketOwnershipControls&quot;,</span><br><span class="line">&quot;s3:GetBucketCORS&quot;,</span><br><span class="line">&quot;s3:GetAnalyticsConfiguration&quot;,</span><br><span class="line">&quot;s3:GetReplicationConfiguration&quot;,</span><br><span class="line">&quot;s3:GetLifecycleConfiguration&quot;,</span><br><span class="line">&quot;s3:GetInventoryConfiguration&quot;,</span><br><span class="line">&quot;s3:GetIntelligentTieringConfiguration&quot;</span><br><span class="line">],</span><br><span class="line">&quot;Resource&quot;: [</span><br><span class="line">&quot;arn:aws-cn:s3:::&#123;BucketName&#125;&quot;,</span><br><span class="line">&quot;arn:aws-cn:s3:::&#123;BucketName&#125;&quot;,</span><br><span class="line">&quot;arn:aws-cn:s3:::&#123;BucketName&#125;&quot;</span><br><span class="line">]</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">&quot;Sid&quot;: &quot;Statement2&quot;,</span><br><span class="line">&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">&quot;Action&quot;: [</span><br><span class="line">&quot;s3:*&quot;</span><br><span class="line">],</span><br><span class="line">&quot;Resource&quot;: [</span><br><span class="line">&quot;arn:aws-cn:s3:::&#123;BucketName&#125;/&#123;ObjectName&#125;/*&quot;,</span><br><span class="line">&quot;arn:aws-cn:s3:::&#123;BucketName&#125;/&#123;ObjectName&#125;/*&quot;,</span><br><span class="line">&quot;arn:aws-cn:s3:::&#123;BucketName&#125;/&#123;ObjectName&#125;/*&quot;</span><br><span class="line">]</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">&quot;Sid&quot;: &quot;Statement3&quot;,</span><br><span class="line">&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">&quot;Action&quot;: [</span><br><span class="line">&quot;s3:ListAllMyBuckets&quot;</span><br><span class="line">],</span><br><span class="line">&quot;Resource&quot;: [</span><br><span class="line">&quot;*&quot;</span><br><span class="line">]</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">&quot;Sid&quot;: &quot;Statement4&quot;,</span><br><span class="line">&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">&quot;Action&quot;: [</span><br><span class="line">&quot;s3:GetAccountPublicAccessBlock&quot;,</span><br><span class="line">&quot;s3:ListAccessPoints&quot;,</span><br><span class="line">&quot;s3:ListAccessPointsForObjectLambda&quot;,</span><br><span class="line">&quot;s3:ListJobs&quot;</span><br><span class="line">],</span><br><span class="line">&quot;Resource&quot;: [</span><br><span class="line">&quot;*&quot;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;下述权限为测试用户对测试资源的完全控制使用。&lt;/p&gt;
+&lt;p&gt;“arn:aws-cn:s3:::{BucketName}”和”arn:aws-cn:s3:::{BucketName}&amp;#x2F;{ObjectName}”,需替换相应资源信息。&lt;/p&gt;
+&lt;figure clas</summary>
+      
+    
+    
+    
+    <category term="云计算" scheme="http://example.com/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+    <category term="AWS" scheme="http://example.com/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/AWS/"/>
+    
+    
+    <category term="AWS" scheme="http://example.com/tags/AWS/"/>
+    
+    <category term="权限策略" scheme="http://example.com/tags/%E6%9D%83%E9%99%90%E7%AD%96%E7%95%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>3.AWS权限控制-EC2用户操作指定资源</title>
+    <link href="http://example.com/2024/01/23/3-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-EC2%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C%E6%8C%87%E5%AE%9A%E8%B5%84%E6%BA%90/"/>
+    <id>http://example.com/2024/01/23/3-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-EC2%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C%E6%8C%87%E5%AE%9A%E8%B5%84%E6%BA%90/</id>
+    <published>2024-01-23T14:53:24.000Z</published>
+    <updated>2024-01-23T14:57:23.004Z</updated>
+    
+    <content type="html"><![CDATA[<p>下述权限为测试用户对测试资源的完全控制使用。EC2权限比较多，包含了VPC、网络、镜像和instance等，偷懒使用了通配符，如果需要可以具体指定更精细的权限。</p><p>“arn:aws-cn:ec2:{Region}:{Account}:instance&#x2F;{InstanceId}” 需替换相应资源信息。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;Version&quot;: &quot;2012-10-17&quot;,</span><br><span class="line">&quot;Statement&quot;: [</span><br><span class="line">&#123;</span><br><span class="line">&quot;Sid&quot;: &quot;Statement1&quot;,</span><br><span class="line">&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">&quot;Action&quot;: [</span><br><span class="line">&quot;ec2:DescribeInstances&quot;,</span><br><span class="line">&quot;ec2:DescribeImages&quot;,</span><br><span class="line">&quot;ec2:DescribeVolumes&quot;,</span><br><span class="line">&quot;ec2:DescribeSecurityGroups&quot;,</span><br><span class="line">&quot;ec2:DescribeSecurityGroupRules&quot;</span><br><span class="line">],</span><br><span class="line">&quot;Resource&quot;: [</span><br><span class="line">&quot;*&quot;</span><br><span class="line">]</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">&quot;Sid&quot;: &quot;Statement2&quot;,</span><br><span class="line">&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">&quot;Action&quot;: [</span><br><span class="line">&quot;ec2:*&quot;</span><br><span class="line">],</span><br><span class="line">&quot;Resource&quot;: [</span><br><span class="line">&quot;arn:aws-cn:ec2:&#123;Region&#125;:&#123;Account&#125;:instance/&#123;InstanceId&#125;&quot;,</span><br><span class="line">&quot;arn:aws-cn:ec2:&#123;Region&#125;:&#123;Account&#125;:instance/&#123;InstanceId&#125;&quot;,</span><br><span class="line">&quot;arn:aws-cn:ec2:&#123;Region&#125;:&#123;Account&#125;:instance/&#123;InstanceId&#125;&quot;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;下述权限为测试用户对测试资源的完全控制使用。EC2权限比较多，包含了VPC、网络、镜像和instance等，偷懒使用了通配符，如果需要可以具体指定更精细的权限。&lt;/p&gt;
+&lt;p&gt;“arn:aws-cn:ec2:{Region}:{Account}:instance&amp;#x2F;</summary>
+      
+    
+    
+    
+    <category term="云计算" scheme="http://example.com/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
+    
+    <category term="AWS" scheme="http://example.com/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/AWS/"/>
+    
+    
+    <category term="AWS" scheme="http://example.com/tags/AWS/"/>
+    
+    <category term="权限策略" scheme="http://example.com/tags/%E6%9D%83%E9%99%90%E7%AD%96%E7%95%A5/"/>
+    
+  </entry>
   
   <entry>
     <title>2.AWS权限控制-RDS用户操作指定资源</title>
