@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>1.AWS权限控制-基础介绍</title>
+    <url>/2024/01/23/1-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<p>一、介绍<br>在使用AWS时会有这样的场景，测试机器和生产机器在一个账号下，想要测试人员有对测试机有完全的权限，又不想他对生产机有权限，可以使用一下方式创建策略指定资源。</p>
+<p>建议创建一个测试权限的用户组，在添加特定权限策略。</p>
+<p>创建权限时通常会发现有些权限仅能所有资源，有些可以指定特定的资源。通常我会分成多个Statement来分配权限，一个用于分配列入list或Describe 描述或列表类的权限，通常这些只能使用所有资源，如果不想让用户看到所有信息也可以删除部分这类权限，使用详细的链接。<br>另一个分配具体的get、put类的操作，这类可以指定详细的资源，建议资源指定的时候使用通配符，AWS对权限json有大小限制5120 bytes 。</p>
+<p>服务授权参考文档可以查看具体权限描述、资源类型和条件键，避免了我们一个一个权限尝试。</p>
+<p><a href="https://docs.amazonaws.cn/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html">https://docs.amazonaws.cn/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html</a></p>
+<p>不管是测试账号还是只读账号，方法是相同的，只要按照下述方法就可以定制自己需要的权限策略组。</p>
+<p>二、创建用户组<br>在IAM控制台中点击用户组，创建用户组</p>
+<p><img src="/../images/1-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/1.png"></p>
+<p>在权限中创建内联策略，完成后添加用户即可。</p>
+<p><img src="/../images/1-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/2.png"></p>
+<p>三、权限策略<br>精细权限配置使用创建内联策略，可以使用可视化配置和json配置，建议使用json，习惯了会发现非常方便。</p>
+<p>具体权限参考可以查看后续文章。</p>
+<p>四、测试权限<br>使用<a href="https://policysim.amazonaws.cn/home/index.jsp#groups/">https://policysim.amazonaws.cn/home/index.jsp?#groups/</a> 验证创建的权限策略是否正确</p>
+<p>在策略模拟器中选择指定的资源后运行模拟，给出结果是拒绝，因为默认资源为全部。<br><img src="/../images/1-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/3.png"></p>
+<p>在资源中给出策略允许的指定资源，再次运行模拟，发现显示已允许，资源指定格式跟策略指定格式相同arn:aws-cn:ec2:{Region}:{Account}:instance&#x2F;{InstanceId}</p>
+<p><img src="/../images/1-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/4.png"></p>
+]]></content>
+      <categories>
+        <category>云计算</category>
+        <category>AWS</category>
+      </categories>
+      <tags>
+        <tag>AWS</tag>
+        <tag>权限策略</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2.AWS权限控制-RDS用户操作指定资源</title>
+    <url>/2024/01/23/2-AWS%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6-RDS%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C%E6%8C%87%E5%AE%9A%E8%B5%84%E6%BA%90/</url>
+    <content><![CDATA[<p>下述权限为测试用户对测试资源的完全控制使用。</p>
+<p>“arn:aws-cn:rds:{Region}:{Account}:cluster:{DbClusterInstanceName}” 需替换相应资源信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;Version&quot;: &quot;2012-10-17&quot;,</span><br><span class="line">	&quot;Statement&quot;: [</span><br><span class="line">		&#123;</span><br><span class="line">			&quot;Sid&quot;: &quot;Statement1&quot;,</span><br><span class="line">			&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">			&quot;Action&quot;: [</span><br><span class="line">				&quot;rds:DescribeGlobalClusters&quot;,  #查看db列表</span><br><span class="line">				&quot;rds:DescribeDBInstances&quot;, #查看db列表</span><br><span class="line">				&quot;rds:DescribeDBClusters&quot;, #查看db列表</span><br><span class="line">				&quot;rds:DescribeDBClusterSnapshots&quot;, #查看db快照</span><br><span class="line">				&quot;rds:DescribeDBSnapshots&quot;, #查看db快照</span><br><span class="line">				&quot;rds:DescribeDBSubnetGroups&quot; #查看db子网</span><br><span class="line">			],</span><br><span class="line">			&quot;Resource&quot;: [</span><br><span class="line">				&quot;*&quot;</span><br><span class="line">			]</span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;</span><br><span class="line">			&quot;Sid&quot;: &quot;Statement2&quot;,</span><br><span class="line">			&quot;Effect&quot;: &quot;Allow&quot;,</span><br><span class="line">			&quot;Action&quot;: [</span><br><span class="line">				&quot;rds:*&quot;   #全部rds操作</span><br><span class="line">			],</span><br><span class="line">			&quot;Resource&quot;: [</span><br><span class="line">				&quot;arn:aws-cn:rds:&#123;Region&#125;:&#123;Account&#125;:cluster:&#123;DbClusterInstanceName&#125;&quot;</span><br><span class="line">			]</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>云计算</category>
+        <category>AWS</category>
+      </categories>
+      <tags>
+        <tag>AWS</tag>
+        <tag>权限策略</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PyInstaller打包</title>
+    <url>/2024/01/15/PyInstaller%E6%89%93%E5%8C%85/</url>
+    <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>Pyinstaller是python的一个打包模块，好处就是可以自动读取python代码所需要的依赖打包成一个或一组文件，在其他环境中就不需要安装各种依赖方便运行，唯一的坏处就是会让文件变的很大。</p>
+<p>我通常使用它打包成一个单可执行文件，有些交付环境不能出网安装python3和依赖库比较麻烦。虽然文件变大了，但是配合logging模块很好的处理一些事情。</p>
+<p>下面主要是单可执行文件生成，使用不难，主要是了解如何修改spec文件，主要是使用如何将外部文件打包到程序里，如果有进一步的需求我在更新。</p>
+<p>强烈建议参考官网文档 <a href="https://pyinstaller.org/en/stable/">https://pyinstaller.org/en/stable/</a></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip install pyinstaller</span><br></pre></td></tr></table></figure>
+
+<h1 id="生成可执行程序"><a href="#生成可执行程序" class="headerlink" title="生成可执行程序"></a>生成可执行程序</h1><p>pyinstaller 参数 python文件</p>
+<p>打包一个可执行单文件，-F 单文件，不加的话依赖存放在生成的目录中，-n 指定文件名称</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pyinstaller -F main.py -n mysqlbackup</span><br></pre></td></tr></table></figure>
+
+<p>具体参考一下参数:</p>
+<table>
+<thead>
+<tr>
+<th align="left">-h，–help</th>
+<th align="left"><strong>查看该模块的帮助信息</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-F，-onefile</td>
+<td align="left">产生单个的可执行文件</td>
+</tr>
+<tr>
+<td align="left">-D，–onedir</td>
+<td align="left">产生一个目录（包含多个文件）作为可执行程序</td>
+</tr>
+<tr>
+<td align="left">-a，–ascii</td>
+<td align="left">不包含 Unicode 字符集支持</td>
+</tr>
+<tr>
+<td align="left">-d，–debug</td>
+<td align="left">产生 debug 版本的可执行文件</td>
+</tr>
+<tr>
+<td align="left">-w，–windowed，–noconsolc</td>
+<td align="left">指定程序运行时不显示命令行窗口（仅对 Windows 有效）</td>
+</tr>
+<tr>
+<td align="left">-c，–nowindowed，–console</td>
+<td align="left">指定使用命令行窗口运行程序（仅对 Windows 有效）</td>
+</tr>
+<tr>
+<td align="left">-o DIR，–out&#x3D;DIR</td>
+<td align="left">指定 spec 文件的生成目录。如果没有指定，则默认使用当前目录来生成 spec 文件</td>
+</tr>
+<tr>
+<td align="left">-p DIR，–path&#x3D;DIR</td>
+<td align="left">设置 Python 导入模块的路径（和设置 PYTHONPATH 环境变量的作用相似）。也可使用路径分隔符（Windows 使用分号，Linux 使用冒号）来分隔多个路径</td>
+</tr>
+</tbody></table>
+<h1 id="外部文件打包"><a href="#外部文件打包" class="headerlink" title="外部文件打包"></a>外部文件打包</h1><p>如果在有外部文件需要打包到单执行文件中时，可修改spec文件</p>
+<p>datas 接收元组，datas&#x3D;[(‘.&#x2F;bin&#x2F;mysqldump’, ‘bin’)] 表示 (原项目中资源文件路径，打包后路径),多个文件使用元组的方式[(‘xxx’,’XX’),(‘xxx’,’xx’)]</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a = Analysis(</span><br><span class="line">    [&#x27;main.py&#x27;],</span><br><span class="line">    pathex=[],</span><br><span class="line">    binaries=[],</span><br><span class="line">    datas=[(&#x27;./bin/mysqldump&#x27;, &#x27;bin&#x27;)],</span><br><span class="line">    hiddenimports=[],</span><br><span class="line">    hookspath=[],</span><br><span class="line">    hooksconfig=&#123;&#125;,</span><br><span class="line">    runtime_hooks=[],</span><br><span class="line">    excludes=[],</span><br><span class="line">    noarchive=False,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>再一次执行spec文件生成新的执行文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pyinstaller mysqlbackup.spec</span><br></pre></td></tr></table></figure>
+
+<h1 id="关于配置文件"><a href="#关于配置文件" class="headerlink" title="关于配置文件"></a>关于配置文件</h1><p>读取配置文件不能使用绝对路径，需要在代码中使用path.abspath获取绝对路径，否则无法正确的读取配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">self.mysql_dump_path = path.abspath(path.join(path.dirname(__file__), &#x27;bin/mysqldump&#x27;))</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>PyInstaller</tag>
+      </tags>
+  </entry>
+</search>
